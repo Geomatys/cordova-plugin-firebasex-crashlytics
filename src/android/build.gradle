@@ -1,34 +1,4 @@
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath "com.google.firebase:firebase-crashlytics-gradle:3.0.7"
-        classpath "com.android.tools.build:gradle-api:8.10.1"
-    }
-}
-repositories {
-    mavenCentral()
-    maven {
-        url "https://maven.google.com"
-    }
-}
-
-apply plugin: com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsPlugin
-android {
-    buildTypes {
-        debug {
-            firebaseCrashlytics {
-                mappingFileUploadEnabled false
-            }
-        }
-        release {
-            firebaseCrashlytics {
-                nativeSymbolUploadEnabled true
-                unstrippedNativeLibsDir "obj/local"
-                strippedNativeLibsDir "build/intermediates/jniLibs/release"
-            }
-        }
-    }
-}
+// Geomatys fork: Crashlytics Gradle plugin disabled for AGP 8.10+ compatibility.
+// The Crashlytics SDK is still included via plugin.xml frameworks, but the Gradle
+// plugin (which uploads mapping files and NDK symbols at build time) is not applied.
+// This is safe as long as the host app does not rely on automatic mapping/NDK upload.

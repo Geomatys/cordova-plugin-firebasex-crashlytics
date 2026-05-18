@@ -29,25 +29,23 @@
             <preference name="GradlePluginGoogleServicesEnabled" value="true" />
         </config-file>
 
-        <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="FirebasexCrashlyticsPlugin">
-                <param name="android-package" value="org.apache.cordova.firebasex.FirebasexCrashlyticsPlugin" />
-                <param name="onload" value="true" />
-            </feature>
-        </config-file>
-
-        <config-file target="AndroidManifest.xml" parent="/manifest/application">
-            <meta-data android:name="firebase_crashlytics_collection_enabled" android:value="$FIREBASE_CRASHLYTICS_COLLECTION_ENABLED" />
-        </config-file>
+        <!-- Geomatys fork: feature registration removed (Java class removed above). -->
+        <!-- Geomatys fork: meta-data removed (Crashlytics SDK no longer present). -->
 
         <preference name="ANDROID_FIREBASE_CRASHLYTICS_VERSION" default="20.0.4" />
         <preference name="ANDROID_FIREBASE_CRASHLYTICS_NDK_VERSION" default="20.0.4" />
 
-        <source-file src="src/android/FirebasexCrashlyticsPlugin.java" target-dir="src/org/apache/cordova/firebasex" />
-        <source-file src="src/android/JavaScriptException.java" target-dir="src/org/apache/cordova/firebasex" />
-        <framework src="com.google.firebase:firebase-crashlytics:$ANDROID_FIREBASE_CRASHLYTICS_VERSION" />
-        <framework src="com.google.firebase:firebase-crashlytics-ndk:$ANDROID_FIREBASE_CRASHLYTICS_NDK_VERSION" />
-        <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
+        <!-- Geomatys fork: Java source files removed because they depend on the Firebase Crashlytics SDK
+             which is stripped (see comment below). -->
+        <!-- <source-file src="src/android/FirebasexCrashlyticsPlugin.java" target-dir="src/org/apache/cordova/firebasex" /> -->
+        <!-- <source-file src="src/android/JavaScriptException.java" target-dir="src/org/apache/cordova/firebasex" /> -->
+        <!-- Geomatys fork: Crashlytics SDK frameworks removed.
+             The SDK refuses to start without the Crashlytics Gradle plugin (build ID missing),
+             which is itself incompatible with AGP 8.10+. Since this app does not use Crashlytics,
+             we strip the SDK entirely to avoid the runtime crash. -->
+        <!-- <framework src="com.google.firebase:firebase-crashlytics:$ANDROID_FIREBASE_CRASHLYTICS_VERSION" /> -->
+        <!-- <framework src="com.google.firebase:firebase-crashlytics-ndk:$ANDROID_FIREBASE_CRASHLYTICS_NDK_VERSION" /> -->
+        <!-- <framework src="src/android/build.gradle" custom="true" type="gradleReference" /> -->
     </platform>
 
     <!-- iOS -->
